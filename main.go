@@ -74,4 +74,3 @@ func main(){
 		fmt.Printf("The oldest women is: %s\n", olderWom)	
 	}	
 }
-
