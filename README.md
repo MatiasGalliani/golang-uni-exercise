@@ -2,7 +2,7 @@
 
 Hello! Welcome to my first ever functioning project on GOLANG.
 
-For a better understanding I'm going to copy and paste the exercise I had to do:
+For better understanding, here's the assignment I solved:
 
 ### Assignment 39
 
@@ -21,6 +21,6 @@ The system must calculate and display:
 *   The total count of **single men**.
 *   The **name** of the oldest woman.
 
-Used official documentation of GOLANG and Google Gemini for help, but the whole syntax was handwritten.
+I used the official Go documentation and Google Gemini for guidance, but the entire syntax was handwritten by me.
 
 Bye!
