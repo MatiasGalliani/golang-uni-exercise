@@ -42,21 +42,21 @@ func main(){
 		fmt.Scan(&civilStatus)
 
 		if gender == 1 {
-			men += 1
+			men++
 			if civilStatus == 3 {
-				marrMen += 1
+				marrMen++
 				sumAgeMarrMen += age
 			    if age > 30 {
-					marrOld30 += 1
+					marrOld30++
 				}
 			}
 			if civilStatus == 1 {
-				singleMen += 1
+				singleMen++
 			}
 		} else {
-			women += 1
+			women++
 			if civilStatus == 1 && age < 25 {
-				womSingYoung25 += 1
+				womSingYoung25++
 			}
 			if womAgeIndex == 0 {
 				womMaxAge = age
