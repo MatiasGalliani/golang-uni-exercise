@@ -7,6 +7,13 @@ import (
 	"strings"
 )
 
+type Person struct {
+	name string
+	gender string
+	civilStatus string
+	age int
+}
+
 func readValid(message string, validDigits string) string {
 	reader := bufio.NewReader(os.Stdin)
 
@@ -38,11 +45,15 @@ func readLine(message string) string {
 }
 
 func readAge(message string) int {
-	var age int
+	reader := bufio.NewReader(os.Stdin)
 	for {
 		fmt.Print(message)
-		fmt.Scan(&age)
-		if age >= 0 {
+		input, _ := reader.ReadString('\n')
+		input = strings.TrimSpace(input)
+
+		var age int
+		_, err := fmt.Sscan(input, &age)
+		if err == nil && age >= 0 {
 			return age
 		}
 		fmt.Println("Invalid age, try again.")
@@ -50,54 +61,53 @@ func readAge(message string) int {
 }
 
 func main(){
-	var name, olderWom, gender, civilStatus string
-	var age, womAgeIndex, closingIndex int
+	var olderWom string
+	var womAgeIndex, closingIndex int
 	var marrOld30, marrMen, men, women int
 	var singleMen, womSingYoung25, sumAgeMarrMen, womMaxAge int
 	var avgAgeMarrMen float64
 
-	womAgeIndex = 0
-	closingIndex = 0
-
 	for {
-		age = readAge("Insert your age (0 to exit): ")
+		person := Person{}
 
-		if age == 0 {
+		person.age = readAge("Insert your age (0 to exit): ")
+
+		if person.age == 0 {
 			fmt.Println("Age inserted was 0, closing app...")
 			break
 		}
 
-		name = readLine("Insert your name: ")
+		person.name = readLine("Insert your name: ")
 
-		gender = readValid("Insert your gender: ", "12")
+		person.gender = readValid("Insert your gender: ", "12")
 
-		civilStatus = readValid("Insert your civil status: ", "1234")
+		person.civilStatus = readValid("Insert your civil status: ", "1234")
 
-		if gender == "1" {
+		if person.gender == "1" {
 			men++
-			if civilStatus == "3" {
+			if person.civilStatus == "3" {
 				marrMen++
-				sumAgeMarrMen += age
-			    if age > 30 {
+				sumAgeMarrMen += person.age
+			    if person.age > 30 {
 					marrOld30++
 				}
 			}
-			if civilStatus == "1" {
+			if person.civilStatus == "1" {
 				singleMen++
 			}
 		} else {
 			women++
-			if civilStatus == "1" && age < 25 {
+			if person.civilStatus == "1" && person.age < 25 {
 				womSingYoung25++
 			}
 			if womAgeIndex == 0 {
-				womMaxAge = age
-				olderWom = name
+				womMaxAge = person.age
+				olderWom = person.name
 				womAgeIndex++
 			} else {
-				if womMaxAge < age {
-					womMaxAge = age
-					olderWom = name
+				if womMaxAge < person.age {
+					womMaxAge = person.age
+					olderWom = person.name
 				}
 			}
 		}
@@ -106,7 +116,7 @@ func main(){
 
 	if marrMen > 0 {
 		avgAgeMarrMen = float64(sumAgeMarrMen) / float64(marrMen)
-		fmt.Printf("The avgrage age of the married men is: %.2f\n", avgAgeMarrMen)
+		fmt.Printf("The average age of the married men is: %.2f\n", avgAgeMarrMen)
 	}
 
 	if closingIndex > 0 {
