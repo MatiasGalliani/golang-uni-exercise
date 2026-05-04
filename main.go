@@ -30,6 +30,25 @@ func readValid(message string, validDigits string) string {
 	}
 }
 
+func readLine(message string) string {
+	reader := bufio.NewReader(os.Stdin)
+	fmt.Print(message)
+	input, _ := reader.ReadString('\n')
+	return strings.TrimSpace(input)
+}
+
+func readAge(message string) int {
+	var age int
+	for {
+		fmt.Print(message)
+		fmt.Scan(&age)
+		if age >= 0 {
+			return age
+		}
+		fmt.Println("Invalid age, try again.")
+	}
+}
+
 func main(){
 	var name, olderWom, gender, civilStatus string
 	var age, womAgeIndex, closingIndex int
@@ -41,16 +60,14 @@ func main(){
 	closingIndex = 0
 
 	for {
-		fmt.Print("Insert your age (0 to exit): ")
-		fmt.Scan(&age)
+		age = readAge("Insert your age (0 to exit): ")
 
 		if age == 0 {
 			fmt.Println("Age inserted was 0, closing app...")
 			break
 		}
 
-		fmt.Print("Insert your name: ")
-		fmt.Scan(&name)
+		name = readLine("Insert your name: ")
 
 		gender = readValid("Insert your gender: ", "12")
 
@@ -89,7 +106,7 @@ func main(){
 
 	if marrMen > 0 {
 		avgAgeMarrMen = float64(sumAgeMarrMen) / float64(marrMen)
-		fmt.Printf("The avgrage age of the married men is: %.2f\n", aveAgeMarrMen)
+		fmt.Printf("The avgrage age of the married men is: %.2f\n", avgAgeMarrMen)
 	}
 
 	if closingIndex > 0 {
